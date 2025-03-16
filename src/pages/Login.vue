@@ -1,10 +1,17 @@
 <template>
   <main>
-    <div>
-      EMAIL <input v-model="inputEmail" /> PWD
-      <input v-model="inputPWD" type="password" />
+    <div class="login-wrapper">
+      <div class="input-wrapper">
+        <label>EMAIL</label>
+        <input v-model="inputEmail" placeholder="EMAIL" />
+        <label>PWD</label>
+        <input v-model="inputPWD" type="password" placeholder="password" />
+      </div>
+      <div class="button-wrapper">
+        <button class="loginbtn" @click="submitForm">login</button>
+        <button class="homebtn" @click="goToHome">cancel</button>
+      </div>
     </div>
-    <div><button @click="submitForm">login</button></div>
   </main>
 </template>
 
@@ -15,11 +22,13 @@ import { useRouter } from "vue-router";
 
 const router = useRouter();
 
-// ✅ 반응형 변수 선언 (useState 같은 역할)
 const inputEmail = ref("");
 const inputPWD = ref("");
 
-// ✅ 로그인 요청 함수
+const goToHome = () => {
+  router.push("/");
+};
+
 const submitForm = () => {
   axios
     .post(
@@ -31,7 +40,7 @@ const submitForm = () => {
         },
       },
       {
-        withCredentials: true, // ✅ 세션/쿠키를 주고받으려면 무조건 필요!
+        withCredentials: true,
       }
     )
     .then((response) => {
@@ -45,3 +54,53 @@ const submitForm = () => {
     });
 };
 </script>
+
+<style scoped>
+main {
+  display: flex;
+  justify-content: center; /* 가로 중앙 */
+  align-items: center; /* 세로 중앙 */
+}
+
+.login-wrapper {
+  display: flex;
+  justify-content: center;
+  flex-direction: column; /* 세로 정렬 */
+  gap: 10px; /* 각 input 사이 간격 */
+  width: 300px; /* 적당한 너비 (원하는 값으로 변경 가능) */
+}
+.input-wrapper {
+  display: flex;
+  justify-content: center;
+  flex-direction: column; /* 세로 정렬 */
+  gap: 10px; /* 각 input 사이 간격 */
+  width: 300px; /* 적당한 너비 (원하는 값으로 변경 가능) */
+}
+
+.input-wrapper input {
+  padding: 10px; /* 안쪽 여백 */
+  font-size: 16px; /* 글씨 크기 */
+  border: 1px solid #ccc; /* 테두리 */
+  border-radius: 4px; /* 모서리 둥글게 */
+}
+
+.button-wrapper {
+  display: flex;
+  justify-content: space-between; /* 좌우 정렬 */
+  gap: 10px;
+}
+
+.homebtn {
+  background-color: red;
+}
+
+@media screen and (max-width: 480px) {
+  .loginbtn {
+    width: 50vw;
+  }
+
+  .homebtn {
+    width: 50vw;
+  }
+}
+</style>

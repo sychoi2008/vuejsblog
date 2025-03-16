@@ -1,15 +1,15 @@
 <template>
-  <div>
-    <button @click="goToEdit">Edit</button>
-    <button @click="goToDelete">Delete</button>
+  <div class="button-wrapper">
+    <button class="editbtn" @click="goToEdit">Edit</button>
+    <button class="deletebtn" @click="goToDelete">Delete</button>
   </div>
 
   <main>
     <div v-if="post">
       <div class="item">
-        <h2>{{ post.title }}</h2>
-        <p>{{ post.tag?.name }}</p>
-        <p>{{ post.updated_at }}</p>
+        <h2>Title: {{ post.title }}</h2>
+        <p>Tag: {{ post.tag.name }}</p>
+        <p>Date: {{ post.updated_at.slice(0, 16).replace("T", " ") }}</p>
         <p>{{ post.content }}</p>
       </div>
     </div>
@@ -18,6 +18,10 @@
       <p>글을 불러오는 중입니다...</p>
     </div>
   </main>
+
+  <div>
+    <button class="backbtn" @click="goToHome">back</button>
+  </div>
 </template>
 
 <script setup>
@@ -34,6 +38,10 @@ Vue는 onMounted가 실행되면 데이터를 가져오고, 그 데이터가 렌
 그래서 보통 v-if를 써서 데이터가 도착했을 때만 렌더링하는 패턴을 많이 사용해.
 **/
 const post = ref(null);
+
+const goToHome = () => {
+  router.push("/home");
+};
 
 const goToEdit = () => {
   router.push(`/write/${postId}`);
@@ -62,3 +70,31 @@ onMounted(async () => {
   }
 });
 </script>
+
+<style scoped>
+.button-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+
+  margin-bottom: 10px;
+}
+p {
+  white-space: pre-line;
+}
+
+/* 미디어 쿼리 - 모바일 */
+@media screen and (max-width: 480px) {
+  .editbtn {
+    width: 50vw;
+  }
+
+  .deletebtn {
+    width: 50vw;
+  }
+
+  .backbtn {
+    width: 100%;
+  }
+}
+</style>

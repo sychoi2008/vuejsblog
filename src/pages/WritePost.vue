@@ -1,18 +1,20 @@
 <template>
   <main>
     <div>
-      <input v-model="title" placeholder="title" />
-      <select v-model="selectedTag" id="tags">
-        <option disabled value="">태그를 선택하세요</option>
-        <option v-for="tag in tags" :key="tag.id" :value="tag.id">
-          {{ tag.name }}
-        </option>
-      </select>
+      <div class="titleandtag">
+        <input v-model="title" placeholder="title" />
+        <select v-model="selectedTag" id="tags">
+          <option disabled value="">Tag</option>
+          <option v-for="tag in tags" :key="tag.id" :value="tag.id">
+            {{ tag.name }}
+          </option>
+        </select>
+      </div>
       <textarea v-model="content" placeholder="content" />
     </div>
-    <div>
-      <button @click="submitPost">write</button>
-      <button>cancel</button>
+    <div class="button-wrapper">
+      <button class="writebtn" @click="submitPost">write</button>
+      <button class="cancelbtn" @click="goToHome">cancel</button>
     </div>
   </main>
 </template>
@@ -32,6 +34,10 @@ const post = ref(null);
 const title = ref("");
 const content = ref("");
 const selectedTag = ref("");
+
+const goToHome = () => {
+  router.push("/home");
+};
 
 onMounted(async () => {
   try {
@@ -89,3 +95,76 @@ const submitPost = () => {
     });
 };
 </script>
+
+<style scoped>
+.titleandtag {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+input {
+  padding: 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 70vw;
+}
+
+select {
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 30vw;
+  padding: 12px;
+}
+
+textarea {
+  height: 200px;
+  padding: 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.button-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+
+  margin-bottom: 10px;
+}
+
+.cancelbtn {
+  background-color: red;
+}
+
+@media screen and (max-width: 480px) {
+  input {
+    width: 70vw; /* 부모 요소에 맞게 꽉 차게 */
+    padding: 8px;
+    font-size: 12px;
+  }
+
+  select {
+    width: 30vw;
+    padding: 8px;
+    font-size: 12px;
+  }
+
+  .textarea {
+    width: 100%;
+  }
+
+  .writebtn {
+    width: 50vw;
+  }
+
+  .cancelbtn {
+    width: 50vw;
+  }
+}
+</style>

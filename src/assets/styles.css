@@ -1,27 +1,7 @@
-<template>
-  <div class="container">
-    <header class="header">
-      <h1>My Blog</h1>
-    </header>
-
-    <div>
-      <main><router-view /></main>
-    </div>
-  </div>
-</template>
-
-<script setup></script>
-
-<style>
 /* 반응형을 위한 기본 세팅 */
 body {
   margin: 0;
   font-family: sans-serif;
-}
-
-h1 {
-  text-align: center;
-  margin: 40px 0;
 }
 
 button {
@@ -40,11 +20,13 @@ button:hover {
   max-width: 1200px;
   width: 100%;
   margin: 0 auto;
+  padding: 0 20px;
 }
 
 /* 미디어 쿼리 - 태블릿 */
 @media screen and (max-width: 768px) {
   .container {
+    background-color: pink;
     padding: 0 10px;
   }
 }
@@ -52,7 +34,7 @@ button:hover {
 /* 미디어 쿼리 - 모바일 */
 @media screen and (max-width: 480px) {
   .container {
+    background-color: olive;
     padding: 0 5px;
   }
 }
-</style>
