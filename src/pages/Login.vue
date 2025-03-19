@@ -2,10 +2,10 @@
   <main>
     <div class="login-wrapper">
       <div class="input-wrapper">
-        <label>EMAIL</label>
-        <input v-model="inputEmail" placeholder="EMAIL" />
-        <label>PWD</label>
-        <input v-model="inputPWD" type="password" placeholder="password" />
+        <label>E-mail</label>
+        <input v-model="inputEmail" placeholder="ex) test@example.com" />
+        <label>Password</label>
+        <input v-model="inputPWD" type="password" />
       </div>
       <div class="button-wrapper">
         <button class="loginbtn" @click="submitForm">login</button>
@@ -19,6 +19,10 @@
 import { ref } from "vue";
 import axios from "axios";
 import { useRouter } from "vue-router";
+
+import { useAuth } from "@/stores/auth";
+
+const auth = useAuth();
 
 const router = useRouter();
 
@@ -44,13 +48,14 @@ const submitForm = () => {
       }
     )
     .then((response) => {
-      alert("로그인 성공!");
+      alert("ログイン成功!");
       console.log(response.data);
+      auth.login(response.data.user);
       router.push("/home");
     })
     .catch((error) => {
       console.error("로그인 실패:", error);
-      alert("로그인 실패! 이메일과 비밀번호를 확인하세요.");
+      alert("ログイン失敗！IDやPASSWORDをご確認ください。");
     });
 };
 </script>

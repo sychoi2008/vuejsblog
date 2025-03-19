@@ -8,6 +8,7 @@ import WritePost from "../pages/WritePost.vue";
 import SignUp from "../pages/Signup.vue";
 import Welcome from "../pages/Welcome.vue";
 import Post from "../pages/Post.vue";
+import { useAuth } from "@/stores/auth";
 
 const routes = [
   { path: "/", component: Welcome },
@@ -22,6 +23,20 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(), // 히스토리 모드 사용 (URL 깔끔하게)
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  const auth = useAuth();
+
+  const publicPages = ["/", "/login", "/signup"];
+  const authRequired = !publicPages.includes(to.path); // 현재 이동하려는 경로가 publicPages에 속하지 않는 경로라면!
+
+  // ✅ 이미 체크가 되어 있어야 함 (checkLogin을 컴포넌트나 App.vue에서 호출)
+  if (authRequired && !auth.isLoggedIn) {
+    next("/login"); // 로그인 안돼있으면 로그인 페이지로
+  } else {
+    next(); // 로그인 돼있으면 통과
+  }
 });
 
 export default router;

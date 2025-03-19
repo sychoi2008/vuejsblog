@@ -31,6 +31,10 @@ import axios from "axios";
 import { ref, onMounted, computed } from "vue";
 import { useRouter } from "vue-router";
 
+import { useAuth } from "@/stores/auth";
+
+const auth = useAuth();
+
 const router = useRouter();
 
 const searchQuery = ref("");
@@ -82,6 +86,7 @@ const logout = () => {
       router.replace("/");
     })
     .catch((error) => {
+      auth.logout();
       console.error("로그아웃 실패:", error);
       alert("로그아웃 실패!");
     });

@@ -1,7 +1,5 @@
 # vue3-lab
 
-This template should help get you started developing with Vue 3 in Vite.
-
 ## Recommended IDE Setup
 
 [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
@@ -27,3 +25,7 @@ npm run dev
 ```sh
 npm run build
 ```
+
+## 実装した機能の説明
+
+## 任意で工夫したポイント

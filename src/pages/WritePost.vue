@@ -91,6 +91,7 @@ const submitPost = () => {
       router.push("/home"); // 작성/수정 후 이동할 경로
     })
     .catch((err) => {
+      alert(postId ? "修正失敗!" : "作成失敗!");
       console.error("글 저장 실패:", err);
     });
 };

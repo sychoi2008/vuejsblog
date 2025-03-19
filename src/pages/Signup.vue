@@ -1,17 +1,21 @@
 <template>
   <main>
     <div class="input-wrapper">
-      <label>EMAIL</label>
-      <input v-model="inputEmail" placeholder="EMAIL" />
-      <label>PWD</label>
-      <input v-model="inputPWD" type="password" placeholder="password" />
-      <label>PWD_CONFIRM</label>
+      <label>E-mail</label>
+      <input v-model="inputEmail" placeholder="ex) test@example.com" />
+      <label>Password</label>
+      <input
+        v-model="inputPWD"
+        type="password"
+        placeholder="6 characters or more"
+      />
+      <label>Password Confirm</label>
       <input
         v-model="inputConfirm"
         type="password"
-        placeholder="password-confirm"
+        placeholder="check the password again"
       />
-      <label>NAME</label>
+      <label>Name</label>
       <input v-model="inputName" placeholder="name" />
 
       <div class="button-wrapper">
@@ -56,11 +60,12 @@ const submitForm = () => {
     )
     .then((response) => {
       console.log("회원가입 성공 응답:", response);
-      alert("회원가입 성공! 로그인 페이지로 이동");
+      alert("会員登録成功! ログインページに移動します。");
       router.replace("/login");
     })
     .catch((error) => {
       console.error("회원가입 실패:", error.response);
+      alert("会員登録失敗！ブランクがないようにもう一度ご確認ください。");
     });
 };
 </script>
