@@ -57,7 +57,7 @@ const submitForm = () => {
     .then((response) => {
       console.log("회원가입 성공 응답:", response);
       alert("회원가입 성공! 로그인 페이지로 이동");
-      router.push("/login");
+      router.replace("/login");
     })
     .catch((error) => {
       console.error("회원가입 실패:", error.response);

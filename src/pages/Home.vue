@@ -79,7 +79,7 @@ const logout = () => {
     .then((response) => {
       alert("로그아웃 성공!");
 
-      router.push("/");
+      router.replace("/");
     })
     .catch((error) => {
       console.error("로그아웃 실패:", error);
